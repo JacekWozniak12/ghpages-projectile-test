@@ -3,6 +3,12 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
+    public float FireDelay;
+    public float Force;
+
+    [Range(0, 1)]
+    public float Dispersion = 1;
+
     [SerializeField]
     Transform[] firePositions;
 
@@ -10,12 +16,6 @@ public class WeaponController : MonoBehaviour
     GameObject projectile;
 
     bool ableToFire = true;
-
-    [SerializeField]
-    float fireDelay;
-
-    [SerializeField]
-    float force;
 
     [SerializeField]
     ForceMode forceMode;
@@ -33,11 +33,14 @@ public class WeaponController : MonoBehaviour
         ableToFire = false;
         foreach (Transform transform in firePositions)
         {
-            yield return new WaitForSeconds(fireDelay);
-            GameObject p = Instantiate(projectile, transform.position + transform.forward, transform.rotation);
+            yield return new WaitForSeconds(FireDelay);
+            GameObject p = Instantiate(
+                projectile, transform.position + transform.forward, transform.rotation);
+
             p.GetComponent<Rigidbody>().AddForce(
-                transform.forward * force, forceMode);
-                p.AddComponent<DieAfterSeconds>();
+                (transform.forward * Force) + (transform.right * Random.Range(-1.0f, 1f) * Dispersion), forceMode);
+
+            p.AddComponent<DieAfterSeconds>();
         }
         ableToFire = true;
     }
