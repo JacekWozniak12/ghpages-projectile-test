@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class WeaponController : MonoBehaviour
 {
@@ -20,6 +22,27 @@ public class WeaponController : MonoBehaviour
     [SerializeField]
     ForceMode forceMode;
 
+    [SerializeField]
+    TMP_InputField firedelayInputField;
+
+    [SerializeField]
+    TMP_InputField forceInputField;
+
+    [SerializeField]
+    Scrollbar dispersionField;
+
+    public void SetFireDelay(string value) => FireDelay = float.Parse(value);
+    public void SetForce(string value) => Force = float.Parse(value);
+    public void SetDispersion(float value) => Dispersion = value;
+
+    private void Start()
+    {
+        firedelayInputField.text = "" + FireDelay;
+        forceInputField.text = "" + Force;
+        dispersionField.value = Dispersion;
+    }
+
+
     public void Fire()
     {
         if (ableToFire)
@@ -38,7 +61,9 @@ public class WeaponController : MonoBehaviour
                 projectile, transform.position + transform.forward, transform.rotation);
 
             p.GetComponent<Rigidbody>().AddForce(
-                (transform.forward * Force) + (transform.right * Random.Range(-1.0f, 1f) * Dispersion), forceMode);
+                (transform.forward + (transform.right * Random.Range(-1.0f, 1f) * Dispersion)) * Force, forceMode);
+
+            p.transform.rotation = transform.rotation;
 
             p.AddComponent<DieAfterSeconds>();
         }
