@@ -28,7 +28,7 @@
 *.unitypackage       binary
 
 # Compressed Package
-*.br                 binary
+*.br                 text
 
 # 3D models
 *.3dm                binary
