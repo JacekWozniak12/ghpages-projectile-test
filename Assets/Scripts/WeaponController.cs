@@ -58,8 +58,10 @@ public class WeaponController : MonoBehaviour
         {
             yield return new WaitForSeconds(FireDelay);
             GameObject p = Instantiate(
-                projectile, transform.position + transform.forward, transform.rotation);
-
+                projectile, 
+                transform.position + 
+                transform.forward * 0.1f, transform.rotation);
+ 
             p.GetComponent<Rigidbody>().AddForce(
                 (transform.forward + (transform.right * Random.Range(-1.0f, 1f) * Dispersion)) * Force, forceMode);
 
