@@ -5,8 +5,7 @@
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
+# we want to see build on our main
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 
