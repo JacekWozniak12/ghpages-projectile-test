@@ -6,9 +6,5 @@ using UnityEngine.Events;
 public class UIDragController : MonoBehaviour, IDragHandler
 {
     public UnityEvent<PointerEventData> DragEvent;
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        DragEvent?.Invoke(eventData);
-    }
+    public void OnDrag(PointerEventData eventData) => DragEvent?.Invoke(eventData);
 }
